@@ -1,0 +1,71 @@
+@model ProductStoreMVC.Models.Product
+@using ProductStoreMVC.Extensions
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container">
+
+    <h1>Product Details</h1>
+
+    <div class="card mt-4">
+
+        <div class="card-body">
+
+            <h2 class="card-title">
+                @Model.ProductName
+            </h2>
+
+            <hr />
+
+            <p>
+                <strong>Product ID:</strong>
+                @Model.ProductId
+            </p>
+
+            <p>
+                <strong>Category:</strong>
+                @Model.Category
+            </p>
+
+            <p>
+                <strong>Original Price:</strong>
+                $@Model.Price.ToString("0.00")
+            </p>
+
+            <p>
+                <strong>Discount:</strong>
+                @Model.DiscountPercentage%
+            </p>
+
+            <p>
+                <strong>Discounted Price:</strong>
+
+                <span class="text-success">
+                    $@Model.GetDiscountedPrice().ToString("0.00")
+                </span>
+            </p>
+
+            <a asp-controller="Product"
+               asp-action="Order"
+               asp-route-id="@Model.ProductId"
+               class="btn btn-success">
+
+                Place Order
+
+            </a>
+
+            <a asp-controller="Product"
+               asp-action="Index"
+               class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

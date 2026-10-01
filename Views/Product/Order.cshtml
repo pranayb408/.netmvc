@@ -1,0 +1,117 @@
+@model ProductStoreMVC.Models.Product
+
+@using ProductStoreMVC.Extensions
+
+@{
+    ViewData["Title"] = "Place Order";
+}
+
+<div class="container mt-4">
+
+    <h1>
+        Place Order
+    </h1>
+
+    <div class="card mt-4">
+
+        <div class="card-body">
+
+            <h3>
+                @Model.ProductName
+            </h3>
+
+            <hr />
+
+            <p>
+                <strong>Product ID:</strong>
+                @Model.ProductId
+            </p>
+
+            <p>
+                <strong>Category:</strong>
+                @Model.Category
+            </p>
+
+            <p>
+                <strong>MRP:</strong>
+                ₹@Model.Price.ToString("N2")
+            </p>
+
+            <p>
+                <strong>Discount:</strong>
+                @Model.DiscountPercentage%
+            </p>
+
+            <p>
+
+                <strong>
+                    Final Price:
+                </strong>
+
+                <span class="text-success">
+                    ₹@Model
+                        .GetDiscountedPrice()
+                        .ToString("N2")
+                </span>
+
+            </p>
+
+
+            <!-- =================================================
+                 ORDER FORM
+                 ================================================= -->
+
+            <form asp-controller="Product"
+                  asp-action="Order"
+                  method="post">
+
+                <!--
+                    HIDDEN FIELD
+
+                    ProductId is submitted to the server
+                    without displaying an input box.
+                -->
+
+                <input type="hidden"
+                       name="productId"
+                       value="@Model.ProductId" />
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Customer Name
+                    </label>
+
+                    <input type="text"
+                           name="customerName"
+                           class="form-control"
+                           placeholder="Enter your name"
+                           required />
+
+                </div>
+
+
+                <button type="submit"
+                        class="btn btn-success">
+
+                    Submit Order
+
+                </button>
+
+
+                <a asp-controller="Product"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,102 @@
+@model ProductStoreMVC.Models.Product
+
+@using ProductStoreMVC.Extensions
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-4">
+
+    <h1>
+        Product Details
+    </h1>
+
+    <div class="card mt-4">
+
+        <div class="card-body">
+
+            <h2 class="card-title">
+                @Model.ProductName
+            </h2>
+
+            <hr />
+
+            <p>
+                <strong>Product ID:</strong>
+                @Model.ProductId
+            </p>
+
+            <p>
+                <strong>Product Name:</strong>
+                @Model.ProductName
+            </p>
+
+            <p>
+                <strong>Category:</strong>
+                @Model.Category
+            </p>
+
+            <p>
+                <strong>MRP:</strong>
+                ₹@Model.Price.ToString("N2")
+            </p>
+
+            <p>
+                <strong>Discount:</strong>
+                @Model.DiscountPercentage%
+            </p>
+
+            <p>
+                <strong>Discount Amount:</strong>
+
+                ₹@(
+                    (
+                        Model.Price -
+                        Model.GetDiscountedPrice()
+                    ).ToString("N2")
+                )
+
+            </p>
+
+            <p>
+
+                <strong>
+                    Final Selling Price:
+                </strong>
+
+                <span class="text-success fs-4">
+
+                    ₹@Model
+                        .GetDiscountedPrice()
+                        .ToString("N2")
+
+                </span>
+
+            </p>
+
+            <hr />
+
+            <!-- Query String -->
+            <a asp-controller="Product"
+               asp-action="Order"
+               asp-route-id="@Model.ProductId"
+               class="btn btn-success">
+
+                Place Order
+
+            </a>
+
+            <a asp-controller="Product"
+               asp-action="Index"
+               class="btn btn-secondary">
+
+                Back to Products
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
